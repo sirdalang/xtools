@@ -25,15 +25,18 @@ CPPFILE=$(foreach dir, $(SOURCE_DIR), $(wildcard $(dir)/*.cpp))
 COBJS=$(patsubst %.c,%.o, $(CFILE))
 CPPOBJS=$(patsubst %.cpp,%.o, $(CPPFILE))
 
+OUTPUT_LIB=output/lib
+OUTPUT_INC=output/include
+
 all:output
 
 .PHONY:clean
 
 release:$(RELEASE_DIR)/. $(RELEASE_TARGET)
 debug:$(DEBUG_DIR)/. $(DEBUG_TARGET)
-output:release
-	cp $(RELEASE_TARGET) output/lib/
-	cp xlog.h output/include/
+output:release $(OUTPUT_LIB)/. $(OUTPUT_INC)/.
+	cp $(RELEASE_TARGET) $(OUTPUT_LIB)/
+	cp xlog.h $(OUTPUT_INC)/
 
 %/.:
 	mkdir -p $*

@@ -51,6 +51,6 @@ Module.symvers
 Mkfile.old
 dkms.conf
 
-output/*
+output
 .cache
 *.json
