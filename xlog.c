@@ -43,7 +43,7 @@ static const char *xlog_getlevel (XLOG_LEVEL level)
     return "unknown";
 }
 
-void xlog(XLOG_LEVEL level, const char *file, int line, const char *function, const char *format, ...)
+void xlog(const char *module, XLOG_LEVEL level, const char *file, int line, const char *function, const char *format, ...)
 {
     va_list ap;
     char *pstr = NULL;
@@ -64,11 +64,25 @@ void xlog(XLOG_LEVEL level, const char *file, int line, const char *function, co
     xlog_lock ();
     if (NULL != file)
     {
-        printf ("[%s][%s %d %s]", xlog_getlevel(level), file, line, function);
+        if (NULL != module)
+        {
+            printf ("[%s][%s][%s %d %s]", module, xlog_getlevel(level), file, line, function);
+        }
+        else
+        {
+            printf ("[%s][%s %d %s]", xlog_getlevel(level), file, line, function);
+        }
     }
     else
     {
-        printf ("[%s]", xlog_getlevel(level));
+        if (NULL != module)
+        {
+            printf ("[%s][%s]", module, xlog_getlevel(level));
+        }
+        else
+        {
+            printf ("[%s]", xlog_getlevel(level));
+        }
     }
     printf ("%s", pstr);
     xlog_unlock ();

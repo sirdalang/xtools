@@ -50,13 +50,13 @@ typedef enum XLOG_LEVEL
     XLOG_LEVEL_BUTT,
 } XLOG_LEVEL;
 
-void xlog(XLOG_LEVEL level, const char *file, int line, const char *function, const char *format, ...);
+void xlog(const char *module, XLOG_LEVEL level, const char *file, int line, const char *function, const char *format, ...);
 
-#define xlog_debug(format, ...) xlog(XLOG_LEVEL_DEBUG,__FILE__,__LINE__,__FUNCTION__,format,...)
-#define xlog_log(format, ...) xlog(XLOG_LEVEL_DEBUG,__FILE__,__LINE__,__FUNCTION__,format,...)
-#define xlog_infomation(format, ...) xlog(XLOG_LEVEL_DEBUG,__FILE__,__LINE__,__FUNCTION__,format,...)
-#define xlog_error(format, ...) xlog(XLOG_LEVEL_DEBUG,__FILE__,__LINE__,__FUNCTION__,format,...)
-#define xlog_critical(format, ...) xlog(XLOG_LEVEL_DEBUG,__FILE__,__LINE__,__FUNCTION__,format,...)
+#define xlog_debug(format, args...) xlog(0,XLOG_LEVEL_DEBUG,__FILE__,__LINE__,__FUNCTION__,format,##args)
+#define xlog_log(format, args...) xlog(0,XLOG_LEVEL_LOG,__FILE__,__LINE__,__FUNCTION__,format,##args)
+#define xlog_information(format, args...) xlog(0,XLOG_LEVEL_INFORMATION,__FILE__,__LINE__,__FUNCTION__,format,##args)
+#define xlog_error(format, args...) xlog(0,XLOG_LEVEL_ERROR,__FILE__,__LINE__,__FUNCTION__,format,##args)
+#define xlog_critical(format, args...) xlog(0, XLOG_LEVEL_CRITICAL,__FILE__,__LINE__,__FUNCTION__,format,##args)
 
 #ifdef __cplusplus
 }
