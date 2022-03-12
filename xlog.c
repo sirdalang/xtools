@@ -6,6 +6,7 @@
 #include <stdlib.h>
 
 static pthread_mutex_t s_mutex = PTHREAD_MUTEX_INITIALIZER;
+static int s_log_mask = 0xffffffff;
 
 /**
  * @brief lock for xlog
@@ -43,6 +44,12 @@ static const char *xlog_getlevel (XLOG_LEVEL level)
     return "unknown";
 }
 
+void xlog_setmask(unsigned int mask)
+{
+    s_log_mask = mask;
+    return ;
+}
+
 void xlog(const char *module, XLOG_LEVEL level, const char *file, int line, const char *function, const char *format, ...)
 {
     va_list ap;
@@ -58,6 +65,11 @@ void xlog(const char *module, XLOG_LEVEL level, const char *file, int line, cons
     if (ret < 0)
     {
         printf ("[xlog error]fail to alloc\n");
+        return ;
+    }
+
+    if (! (level & s_log_mask))
+    {
         return ;
     }
 

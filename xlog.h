@@ -42,15 +42,16 @@ extern "C" {
 
 typedef enum XLOG_LEVEL
 {
-    XLOG_LEVEL_DEBUG = 0,
-    XLOG_LEVEL_LOG,
-    XLOG_LEVEL_INFORMATION,
-    XLOG_LEVEL_ERROR,
-    XLOG_LEVEL_CRITICAL,
-    XLOG_LEVEL_BUTT,
+    XLOG_LEVEL_DEBUG        = 1 << 0,
+    XLOG_LEVEL_LOG          = 1 << 1,
+    XLOG_LEVEL_INFORMATION  = 1 << 2,
+    XLOG_LEVEL_ERROR        = 1 << 3,
+    XLOG_LEVEL_CRITICAL     = 1 << 4,
+    XLOG_LEVEL_BUTT         = 1 << 5,
 } XLOG_LEVEL;
 
 void xlog(const char *module, XLOG_LEVEL level, const char *file, int line, const char *function, const char *format, ...);
+void xlog_setmask(unsigned int mask);
 
 #define xlog_debug(format, args...) xlog(0,XLOG_LEVEL_DEBUG,__FILE__,__LINE__,__FUNCTION__,format,##args)
 #define xlog_log(format, args...) xlog(0,XLOG_LEVEL_LOG,__FILE__,__LINE__,__FUNCTION__,format,##args)
