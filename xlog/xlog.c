@@ -1,5 +1,7 @@
 #include "xlog.h"
 
+#define __STDC_WANT_LIB_EXT2__ 1
+
 #include <stdio.h>
 #include <stdarg.h>
 #include <pthread.h>
