@@ -54,3 +54,4 @@ dkms.conf
 output
 .cache
 *.json
+build/*
