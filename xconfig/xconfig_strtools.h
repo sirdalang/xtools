@@ -22,28 +22,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-/**
- * @brief xconfig
- * @file xconfig.h
- * @date 202203
- * @author x
- * @version x.x
- */
-
 #pragma once
 
 #ifdef __cplusplus
 extern "C" {
 #endif // __cplusplus
 
-typedef void * XCONFIG_HANDLE;
 
-XCONFIG_HANDLE xconfig_open(const char *file, int readonly);
-int xconfig_close(XCONFIG_HANDLE handle);
-
-int xconfig_getvalue(XCONFIG_HANDLE handle, const char *section, const char *key, char *value, int *size);
-int xconfig_setvalue(XCONFIG_HANDLE handle, const char *section, const char *key, const char *value);
-int xconfig_exist(XCONFIG_HANDLE handle, const char *section, const char *key);
 
 #ifdef __cplusplus
 }

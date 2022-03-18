@@ -13,3 +13,4 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/output/bin)
 
 # add_subdirectory(xconfig)
 add_subdirectory(xlog)
+add_subdirectory(xconfig)
