@@ -30,17 +30,31 @@ static void xlog_unlock ()
 
 static const char *xlog_getlevel (XLOG_LEVEL level)
 {
-    const char *array_level[XLOG_LEVEL_BUTT] = {
+    int i = 0;
+
+    /* Make sure this two arrays has the same length. */
+
+    const char *array_name[XLOG_LEVEL_BUTT] = {
         "dbg",
         "log",
         "inf",
         "err",
         "cri",
     };
+    const XLOG_LEVEL array_level[XLOG_LEVEL_BUTT] = {
+        XLOG_LEVEL_DEBUG,
+        XLOG_LEVEL_LOG,
+        XLOG_LEVEL_INFORMATION,
+        XLOG_LEVEL_ERROR,
+        XLOG_LEVEL_CRITICAL,
+    };
 
-    if (level >= XLOG_LEVEL_DEBUG && level < XLOG_LEVEL_BUTT)
+    for (i = 0; i < XLOG_LEVEL_BUTT; ++i)
     {
-        return array_level[level];
+        if (array_level[i] == level)
+        {
+            return array_name[i];
+        }
     }
 
     return "unknown";
