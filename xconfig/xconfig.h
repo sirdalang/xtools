@@ -34,7 +34,13 @@ SOFTWARE.
 extern "C" {
 #endif // __cplusplus
 
+typedef void * xconfig_handle;
 
+xconfig_handle xconfig_open(const char *file);
+
+int xconfig_getvalue(xconfig_handle handle, const char *section, const char *key, char *value, int *size);
+
+int xconfig_setvalue(xconfig_handle handle, const char *section, const char *key, const char *value);
 
 #ifdef __cplusplus
 }
