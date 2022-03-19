@@ -104,6 +104,14 @@ int xconfig_close(XCONFIG_HANDLE handle)
 
 int xconfig_getvalue(XCONFIG_HANDLE handle, const char *section, const char *key, char *value, int *size)
 {
+    XConfigCtx *pCtx = (XConfigCtx*)handle;
+
+    if (NULL == pCtx)
+    {
+        xlog_error ("NULL handle\n");
+        return -1;
+    }
+
     return 0;
 }
 
@@ -117,13 +125,21 @@ int xconfig_setvalue(XCONFIG_HANDLE handle, const char *section, const char *key
         return -1;
     }
 
-    
+
 
     return 0;
 }
 
 int xconfig_exist(XCONFIG_HANDLE handle, const char *section, const char *key)
 {
+    XConfigCtx *pCtx = (XConfigCtx*)handle;
+
+    if (NULL == pCtx)
+    {
+        xlog_error ("NULL handle\n");
+        return -1;
+    }
+    
     return 0;
 }
 
