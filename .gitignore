@@ -55,3 +55,4 @@ output
 .cache
 *.json
 build/*
+*.ini

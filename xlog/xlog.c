@@ -66,7 +66,66 @@ void xlog_setmask(unsigned int mask)
     return ;
 }
 
-void xlog(const char *module, XLOG_LEVEL level, const char *file, int line, const char *function, const char *format, ...)
+void xlog(const char *module, XLOG_LEVEL level, const char *format, ...)
+{
+    const char *file = NULL;
+    const int line = 0;
+    const char *function = NULL;
+
+    va_list ap;
+    char *pstr = NULL;
+    int ret = 0;
+
+    va_start (ap, format);
+
+    ret = vasprintf (&pstr, format, ap);
+
+    va_end (ap);
+
+    if (ret < 0)
+    {
+        printf ("[xlog error]fail to alloc\n");
+        return ;
+    }
+
+    if (! (level & s_log_mask))
+    {
+        return ;
+    }
+
+    xlog_lock ();
+    if (NULL != file)
+    {
+        if (NULL != module)
+        {
+            printf ("[%s][%s][%s %d %s]", xlog_getlevel(level), module, file, line, function);
+        }
+        else
+        {
+            printf ("[%s][%s %d %s]", xlog_getlevel(level), file, line, function);
+        }
+    }
+    else
+    {
+        if (NULL != module)
+        {
+            printf ("[%s][%s]", xlog_getlevel(level), module);
+        }
+        else
+        {
+            printf ("[%s]", xlog_getlevel(level));
+        }
+    }
+    printf ("%s", pstr);
+    xlog_unlock ();
+
+    free (pstr);
+    pstr = NULL;
+
+    return ;
+}
+
+void xlog_1(const char *module, XLOG_LEVEL level, const char *file, int line, const char *function, const char *format, ...)
 {
     va_list ap;
     char *pstr = NULL;

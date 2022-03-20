@@ -44,7 +44,7 @@ public:
      * @param value 
      * @return int Return 0 if successful or -1 if failed.
      */
-    int GetValue(const std::string &section, const std::string &key, const std::string &default_value, std::string &value);
+    int GetValue(const std::string &section, const std::string &key,std::string &value);
 
     /**
      * @brief Set the Value object
@@ -74,28 +74,26 @@ public:
      * @param key 
      * @return Return 0 if successful or -1 if failed.
      */
-    int Remove(const std::string &section, const std::string &key);
+    int Erase(const std::string &section, const std::string &key);
 private:
-    int SyncFromBackFile__ ();
-    int WriteToBackFile__ ();
+    int WriteToFile__ ();
     int LoadFromFile__ ();
-    int ParseFile__();
 
-    int DataSet (const std::string &section, const std::string &key, const std::string &value);
-    int DataDelete (const std::string &section, const std::string &key);
+    int DataGet__ (const std::string &section, const std::string &key, std::string &value);
+    int DataSet__ (const std::string &section, const std::string &key, const std::string &value);
+    bool DataExist__ (const std::string &section, const std::string &key);
+    int DataErase__ (const std::string &section, const std::string &key);
 
 private:
     const XConfig & operator= (const XConfig &) = delete;
     XConfig & operator= (XConfig &) = delete;
     XConfig (const XConfig &) = delete;
 private:
-    FILE *m_fp__;
     std::string m_filename__;
-    std::string m_filename_bak__;
     bool m_readonly__;
 
-    bool m_state_ok__;  // Indicate file load successfully.
+    bool m_file_loaded__;  // Indicate file load successfully.
     bool m_modify_state__;  // Indicate content changed but hasn't write to file yet.
-    std::map<std::string, std::vector<std::string> > m_map_data__;
+    std::map<std::string, std::map<std::string,std::string> > m_map_data__;
     std::mutex m_mutex__;
 };
