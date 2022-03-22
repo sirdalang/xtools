@@ -230,9 +230,9 @@ int XConfig::LoadFromFile__()
         /* section */
         if (pc_line_section_head != nullptr
             && pc_line_section_tail != nullptr
-            && pc_line_section_head < pc_line_section_tail)
+            && pc_line_section_head + 1 < pc_line_section_tail)
         {
-            cur_section = std::string (pc_line_section_head, pc_line_section_tail - pc_line_section_head);
+            cur_section = std::string (pc_line_section_head + 1, pc_line_section_tail - pc_line_section_head - 1);
             continue ;
         }
 
@@ -249,6 +249,9 @@ int XConfig::LoadFromFile__()
         {
             std::string key_tmp(pc_line, pc_line_equal_sign - pc_line);
             std::string value_tmp (pc_line_equal_sign + 1, pc_line_end - pc_line_equal_sign - 1);
+
+            key_tmp = Trim__(key_tmp);
+            value_tmp = Trim__(value_tmp);
 
             DataSet__(cur_section, key_tmp, value_tmp);
         }
@@ -356,4 +359,30 @@ int XConfig::DataErase__ (const std::string &section, const std::string &key)
     }
 
     return 0;
+}
+
+std::string XConfig::Trim__(const std::string &str)
+{
+    const char *pc_head = str.c_str();
+    const char *pc_tail = str.c_str() + str.length();
+    const char *pc_iterator_head = pc_head;
+    const char *pc_iterator_tail = pc_tail;
+
+    while (std::isblank(*pc_iterator_head) && pc_iterator_head < pc_tail)
+    {
+        ++pc_iterator_head;
+    }
+    while (std::isblank(*pc_iterator_tail) && pc_iterator_head > pc_head)
+    {
+        --pc_iterator_tail;
+    }
+
+    if (pc_iterator_head >= pc_iterator_tail)
+    {
+        return std::string();
+    }
+    else
+    {
+        return std::string(pc_iterator_head, pc_iterator_tail);
+    }
 }

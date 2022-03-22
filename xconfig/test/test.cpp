@@ -6,7 +6,7 @@ int main()
 {
     char buffer[64] = {};
 
-    XCONFIG_HANDLE handle = xconfig_open ("xconfig_test.ini", false);
+    XCONFIG_HANDLE handle = xconfig_open ("/home/test/xconfig_test.ini", false);
 
     xconfig_setvalue (handle, "window", "window_width", "800");
     xconfig_setvalue (handle, "window", "window_height", "600");

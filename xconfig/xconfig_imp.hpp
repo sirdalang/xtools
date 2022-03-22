@@ -84,6 +84,8 @@ private:
     bool DataExist__ (const std::string &section, const std::string &key);
     int DataErase__ (const std::string &section, const std::string &key);
 
+    static std::string Trim__(const std::string &str);
+
 private:
     const XConfig & operator= (const XConfig &) = delete;
     XConfig & operator= (XConfig &) = delete;
