@@ -32,9 +32,10 @@ static const char *xlog_getlevel (XLOG_LEVEL level)
 {
     int i = 0;
 
-    /* Make sure this two arrays has the same length. */
+    /* Make sure this two arrays has the same number of items. */
 
     const char *array_name[XLOG_LEVEL_BUTT] = {
+        "trc",
         "dbg",
         "log",
         "inf",
@@ -42,6 +43,7 @@ static const char *xlog_getlevel (XLOG_LEVEL level)
         "cri",
     };
     const XLOG_LEVEL array_level[XLOG_LEVEL_BUTT] = {
+        XLOG_LEVEL_TRACE,
         XLOG_LEVEL_DEBUG,
         XLOG_LEVEL_LOG,
         XLOG_LEVEL_INFORMATION,
