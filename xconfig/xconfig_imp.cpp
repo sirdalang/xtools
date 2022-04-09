@@ -9,18 +9,18 @@ using namespace NS_XTOOLS;
 
 static const char *module_name = "xconfig_imp";
 
-XConfig::XConfig(const std::string &filename, bool readonly)
+XConfigImp::XConfigImp(const std::string &filename, bool readonly)
 {
     m_file_loaded__ = false;
     m_filename__ = filename;
     m_readonly__ = readonly;
 }
 
-XConfig::~XConfig()
+XConfigImp::~XConfigImp()
 {
 }
 
-int XConfig::LoadFile()
+int XConfigImp::LoadFile()
 {
     std::lock_guard<std::mutex> lock (m_mutex__);
 
@@ -41,7 +41,7 @@ int XConfig::LoadFile()
     return m_file_loaded__ ? 0 : -1;
 }
 
-int XConfig::GetValue(const std::string &section, const std::string &key,std::string &value)
+int XConfigImp::GetValue(const std::string &section, const std::string &key,std::string &value)
 {
     std::lock_guard<std::mutex> lock (m_mutex__);
 
@@ -60,7 +60,7 @@ int XConfig::GetValue(const std::string &section, const std::string &key,std::st
     return 0;
 }
 
-int XConfig::SetValue(const std::string &section, const std::string &key, const std::string &value)
+int XConfigImp::SetValue(const std::string &section, const std::string &key, const std::string &value)
 {
     std::lock_guard<std::mutex> lock (m_mutex__);
 
@@ -91,7 +91,7 @@ int XConfig::SetValue(const std::string &section, const std::string &key, const 
     return 0;
 }
 
-bool XConfig::Exist(const std::string &section, const std::string &key)
+bool XConfigImp::Exist(const std::string &section, const std::string &key)
 {
     std::lock_guard<std::mutex> lock (m_mutex__);
 
@@ -109,7 +109,7 @@ bool XConfig::Exist(const std::string &section, const std::string &key)
     return true;
 }
 
-int XConfig::Erase(const std::string &section, const std::string &key)
+int XConfigImp::Erase(const std::string &section, const std::string &key)
 {
     std::lock_guard<std::mutex> lock (m_mutex__);
 
@@ -140,7 +140,7 @@ int XConfig::Erase(const std::string &section, const std::string &key)
     return 0;
 }
 
-int XConfig::WriteToFile__()
+int XConfigImp::WriteToFile__()
 {
     FILE *fp = nullptr;
 
@@ -189,7 +189,7 @@ int XConfig::WriteToFile__()
     return 0;
 }
 
-int XConfig::LoadFromFile__()
+int XConfigImp::LoadFromFile__()
 {
     size_t size = 0;
     ssize_t ret_ssize = 0;
@@ -272,7 +272,7 @@ int XConfig::LoadFromFile__()
     return 0;
 }
 
-int XConfig::DataGet__ (const std::string &section, const std::string &key, std::string &value)
+int XConfigImp::DataGet__ (const std::string &section, const std::string &key, std::string &value)
 {
     auto it_section = m_map_data__.find (section);
     if (it_section == m_map_data__.cend())
@@ -300,7 +300,7 @@ int XConfig::DataGet__ (const std::string &section, const std::string &key, std:
     return 0;
 }
 
-int XConfig::DataSet__ (const std::string &section, const std::string &key, const std::string &value)
+int XConfigImp::DataSet__ (const std::string &section, const std::string &key, const std::string &value)
 {
     auto it_section = m_map_data__.find (section);
     if (it_section == m_map_data__.cend())
@@ -317,7 +317,7 @@ int XConfig::DataSet__ (const std::string &section, const std::string &key, cons
     return 0;
 }
 
-bool XConfig::DataExist__ (const std::string &section, const std::string &key)
+bool XConfigImp::DataExist__ (const std::string &section, const std::string &key)
 {
     auto it_section = m_map_data__.find (section);
     if (it_section == m_map_data__.cend())
@@ -336,7 +336,7 @@ bool XConfig::DataExist__ (const std::string &section, const std::string &key)
     return true;
 }
 
-int XConfig::DataErase__ (const std::string &section, const std::string &key)
+int XConfigImp::DataErase__ (const std::string &section, const std::string &key)
 {
     auto it_section = m_map_data__.find (section);
     if (it_section == m_map_data__.cend())
@@ -361,7 +361,7 @@ int XConfig::DataErase__ (const std::string &section, const std::string &key)
     return 0;
 }
 
-std::string XConfig::Trim__(const std::string &str)
+std::string XConfigImp::Trim__(const std::string &str)
 {
     const char *pc_head = str.c_str();
     const char *pc_tail = str.c_str() + str.length();

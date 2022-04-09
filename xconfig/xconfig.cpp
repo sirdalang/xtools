@@ -22,7 +22,7 @@ using namespace NS_XTOOLS;
 
 static const char* module_name = "xconfig";
 
-static void xconfig_close__(XConfig *pConfig)
+static void xconfig_close__(XConfigImp *pConfig)
 {
     if (NULL != pConfig)
     {
@@ -36,11 +36,11 @@ XCONFIG_HANDLE xconfig_open(const char *file, int readonly)
 {
     bool bError = false;
 
-    XConfig *pConfig = NULL;
+    XConfigImp *pConfig = NULL;
 
     do 
     {
-        pConfig = new XConfig (std::string (file), readonly);
+        pConfig = new XConfigImp (std::string (file), readonly);
 
         if (pConfig->LoadFile())
         {
@@ -59,7 +59,7 @@ XCONFIG_HANDLE xconfig_open(const char *file, int readonly)
 
 int xconfig_close(XCONFIG_HANDLE handle)
 {
-    XConfig *pConfig = (XConfig*)handle;
+    XConfigImp *pConfig = (XConfigImp*)handle;
 
     xconfig_close__ (pConfig);
 
@@ -68,7 +68,7 @@ int xconfig_close(XCONFIG_HANDLE handle)
 
 int xconfig_getvalue(XCONFIG_HANDLE handle, const char *section, const char *key, char *value, int size)
 {
-    XConfig *pConfig = (XConfig*)handle;
+    XConfigImp *pConfig = (XConfigImp*)handle;
     std::string str_value;
 
     if (nullptr == pConfig)
@@ -97,7 +97,7 @@ int xconfig_getvalue(XCONFIG_HANDLE handle, const char *section, const char *key
 
 int xconfig_setvalue(XCONFIG_HANDLE handle, const char *section, const char *key, const char *value)
 {
-    XConfig *pConfig = (XConfig*)handle;
+    XConfigImp *pConfig = (XConfigImp*)handle;
 
     if (nullptr == pConfig)
     {
@@ -116,7 +116,7 @@ int xconfig_setvalue(XCONFIG_HANDLE handle, const char *section, const char *key
 
 int xconfig_exist(XCONFIG_HANDLE handle, const char *section, const char *key)
 {
-    XConfig *pConfig = (XConfig*)handle;
+    XConfigImp *pConfig = (XConfigImp*)handle;
 
     if (nullptr == pConfig)
     {

@@ -19,14 +19,14 @@
 #include <mutex>
 
 namespace NS_XTOOLS {
-    class XConfig;
+    class XConfigImp;
 };
 
-class NS_XTOOLS::XConfig
+class NS_XTOOLS::XConfigImp
 {
 public:
-    XConfig(const std::string &filename, bool readonly);
-    ~XConfig();
+    XConfigImp(const std::string &filename, bool readonly);
+    ~XConfigImp();
     
     /**
      * @brief Load file into memory.
@@ -87,9 +87,9 @@ private:
     static std::string Trim__(const std::string &str);
 
 private:
-    const XConfig & operator= (const XConfig &) = delete;
-    XConfig & operator= (XConfig &) = delete;
-    XConfig (const XConfig &) = delete;
+    const XConfigImp & operator= (const XConfigImp &) = delete;
+    XConfigImp & operator= (XConfigImp &) = delete;
+    XConfigImp (const XConfigImp &) = delete;
 private:
     std::string m_filename__;
     bool m_readonly__;
